@@ -156,47 +156,83 @@ int jouer(Pion grille[N][M],int colonne,char pion,int joueur){
 void victoire (Pion grille[N][M],int joueur)
 {
 
-	 int ligne,colonne;
+	 int ligne,colonne,x,z=0;
 	int nbp_v = 0;  // nombre de pion alignés verticalement
 	int nbp_h = 0; // nombre de pion alignés horizontalement
+	int nbp_d = 0; // nombre de pion alignés diagonalement
 	
-	
+
+        		
         			/* Verification victoire d'alignement vertical */
     	for(colonne=0;colonne<M;colonne++)
     	{
     		for(ligne=5;ligne>=0;ligne--)
     		{
-    			if((grille[ligne][colonne].pleine== joueur) && (nbp_v != 3))
+    			if(((grille[ligne][colonne].bloquante == joueur) ||(grille[ligne][colonne].pleine== joueur) || grille[ligne][colonne].creuse ==joueur || ((grille[ligne][colonne].pleine== joueur) && (grille[ligne][colonne].creuse ==joueur ))) && (nbp_v != 3))
     			{
     				nbp_v ++;
     				fprintf(stderr, "######### nbp_v= %i\n", nbp_v);  
     			}
-    			else if(grille[ligne][colonne].pleine != joueur) 
+    			else if((grille[ligne][colonne].pleine != joueur) && (grille[ligne][colonne].bloquante != joueur) && grille[ligne][colonne].creuse != joueur)
     				nbp_v=0;
     			else 
-    				printf(" VERTICALE ok \n");
+    				printf(" VERTICALE ok du joueur %i\n",joueur);
     		} 			
     	}
-											//	fprintf(stderr, "######### nbp_v= %i\n", nbp_v);  
-    	
-    	
-    
+											
+    			/* Verification victoire d'alignement  horizontale*/
+   
     		for(ligne=5;ligne>=0;ligne--)
     		{
     			for(colonne=0;colonne<M;colonne++)
     			{		
-    					if((grille[ligne][colonne].pleine== joueur) && (nbp_h != 3))
+    				if(((grille[ligne][colonne].bloquante == joueur) ||(grille[ligne][colonne].pleine== joueur) || grille[ligne][colonne].creuse ==joueur || ((grille[ligne][colonne].pleine== joueur) && (grille[ligne][colonne].creuse ==joueur ))) && (nbp_h != 3))
     					{
     						nbp_h++;
     						fprintf(stderr, "######### nbp_h= %i\n", nbp_h);  
     					}
-    					else if(grille[ligne][colonne].pleine != joueur) 
+    					else if((grille[ligne][colonne].pleine != joueur) && (grille[ligne][colonne].bloquante != joueur) && grille[ligne][colonne].creuse != joueur)
     						nbp_h=0;
     					else 
-    						printf(" HORIZONTALE ok \n");
+    						printf(" HORIZONTALE ok du joueur%i\n",joueur);
 					
   				} 	
+    		} 
+    		
+    		/* Verification victoire d'alignement  diagonale 	
+    		
+    		for(ligne=5;ligne>=3;ligne++)
+    		{
+    					printf(" valeur 4 \n");
+    			for(colonne=0;colonne<4;colonne++)
+				{
+					
+							printf(" valeur colonne %i \n",z);
+					x=0;
+					do
+					{
+								fprintf(stderr, "XXxx  Valeur de  x = %i\n", x); 
+							printf(" valeur 2 \n");
+						if(((grille[ligne+x][colonne+x].bloquante == joueur) ||(grille[ligne+x][colonne+x].pleine== joueur) || grille[ligne+x][colonne+x].creuse ==joueur || ((grille[ligne+x][colonne+x].pleine== joueur) && (grille[ligne+x][colonne+x].creuse ==joueur ))) && (nbp_d != 3))
+    					{
+    						nbp_d++;
+    						fprintf(stderr, "######### nbp_d= %i\n", nbp_d);  
+    					}
+    					else if((grille[ligne+x][colonne+x].pleine != joueur) && (grille[ligne+x][colonne+x].bloquante != joueur) && grille[ligne+x][colonne+x].creuse != joueur)
+    						nbp_d=0;
+    					else 
+    						printf(" DIAGONALE ok du joueur%i\n",joueur);
+						x++;
+						printf(" valeur 3 \n");
+						
+						 
+					}while(colonne<M || ligne >=0 || x <= 5);
+    		
     		}
+    	}
+    
+    		*/
+    		
 }
     			
 
