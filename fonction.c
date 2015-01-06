@@ -1,271 +1,366 @@
-//////////////////////////////
-// ELIASS HAJAJOU 		 //
-//											//
-//////////////////////////
-
 #include <stdio.h>
+#include <stdlib.h>
+
 #include "fonction.h"
 
 
-// structure de nos type  de pion
 
-typedef struct {
-    char creuse,
-    pleine ,
-    bloquante;
+char* coul_joueur[MAX_JOUEUR] = { MAGENTA, CYAN, VERT, ROUGE };
+
+
+
+
+void initialiser_grille(Pion grille[N][M]) {
+    int i,j;
     
-  } Pion;
-
-														/*initialise la matrice de jeu*/
-void init_matrice(Pion grille[N][M]) 
-{
-	int i,j;	
-	for (i=0;i<N;i++)
-	{
-			for (j=0;j<M;j++)
-			{
-			      grille[i][j].creuse = VIDE;
-			      grille[i][j].pleine = VIDE;
-	    	      grille[i][j].bloquante = VIDE;
-			}
-		}
-}
-
-														/*affichage de la matrice */
-void afficher_jeu(Pion grille[N][M])
-{
-	int i,j;
-		
-
-
-    printf("| ");
-    for(i = 0; i < M; i++)
-        printf("%i  | ", i+1); // on affiche le numero de la colonne
-  
-    printf("\n");
-
-    printf("|");
-    for(i = 0; i < M-1; i++)
-        printf("____"); // une ligne 'souligné' pour dessiner le cadre
-    printf("__________|\n");
-	
-  for(j = M-1 ; j >= 0; j--) // on affiche la ligne du haut en haut et on descend pour avoir l'affichage dans le bon sens
-    {
-        printf("|");
-        
-        for(i = 0; i< N; i++)
-        {
-           
-                printf("%c%c%c ", grille[i][j].creuse,grille[i][j].pleine,grille[i][j].bloquante);
-                           printf("|");
+    
+    for (i = 0 ; i < N ; i++) {
+        for (j = 0 ; j < M ; j++) {
+            grille[i][j].creuse = VIDE;
+	    grille[i][j].pleine = VIDE;
+	    grille[i][j].bloquante = VIDE;
         }
-        printf("    |\n");
     }
-  
-    for(i = 0; i < M-1; i++)
-        printf("___"); // une ligne 'souligné' pour dessiner le cadre
-    printf("_________________|\n");
-    
 }
-	
+
+void afficher_bordure() {//affiche une bordure de ligne
+    int i;
+    printf("    +");
+    for (i = 0 ; i < M ; i++) {
+        printf("---------+");
+    }
+    printf("\n");
+}
+
+void afficher_grille(Pion grille[N][M]) {//affiche la grille
+    int i, j;
+    
+    system("clear");
+    
+    afficher_bordure();
+    for (i = 0 ; i < N ; i++) {
+        printf("    |");
+        for (j = 0 ; j < M ; j++) {
+           
+            printf("   ");
+            if(grille[i][j].creuse == VIDE) printf(" ");
+            else { printf("%sc%s", coul_joueur[grille[i][j].creuse - 1], BLANC); }//afficher les pions en couleur
+            
+            printf(" ");
+            
+            if(grille[i][j].pleine == VIDE) printf(" ");
+             else { printf("%sp%s", coul_joueur[grille[i][j].pleine - 1], BLANC); }
+            
+            printf(" ");
+            
+            if(grille[i][j].bloquante == VIDE) printf(" ");
+            else { printf("%sb%s", coul_joueur[grille[i][j].bloquante - 1], BLANC); }
+           
+            
+            printf(" |");
+        }
+        printf("\n");
+       afficher_bordure();
+    }
+   
+}
+
+//renvoie VRAI si grille[lig][col] est vide
+// une case vide est une case qui ne contient ni piece bloquante, ni piece pleine ni piece creuse
 int case_vide(Pion grille[N][M],int lig, int col){
 
 	return (grille[lig][col].creuse == VIDE && grille[lig][col].pleine == VIDE && grille[lig][col].bloquante == VIDE);
 
 }
-	
-											
-											
-											
-																		/*verification si coordonnées valides*/   /
-int coord_valide(Pion grille[N][M],int i, int j)
-{
-	    if ((i>=0 && i<N) && (j>=0 && j<M))	//valeur entrée par user doit etre comprise entre 0 et 7
-       		 return 1;
-    	else
-    		return 0;
-} 
- 
- 
- 
- 
-																			 /*test si la colonne est pleine*/      
-		
-int colonne_pleine(int colonne,Pion grille[N][M];)
-{
-	int ligne =0;
-	
-	 if( grille[ligne][colonne-1] ==0 )  	// si ligne  du haut de la colonne  entrée est pleine renvois 1  sinon 0
-			return 1;							
-	else
-		return 0;
-} 
-    															/*test si grille jeu pleine*/   
- int grille_pleine(int grille[N][M])
-{
-	int colonne=0;
-	int ligne=0;
-	
-	
-	while(colonne<=6 && grille[ligne][colonne] !=0  )  //on parcours les colonnes pour vérifier si elles sont pleines
-		colonne++;
-	
-	if(colonne>=7)
-		return 1 ;
-	else
-		return 0;
-}   
 
 
 
-//int victoire()
+/*
+	jouer : joue dans la colonne 'colonne' le pion 'pion'
+	il faut avoir vÃ©rifiÃ© que la colonne n'est pas pleine
+    renvoie VRAI si on a posÃ© le pion, FAUX sinon
+*/
 
-//void num_joueur()	
-
-
-
-// fonction qui permet à l'user de jouer
-void jouer(Pion grille[N][M],int colonne,char pion, char joueur){
+int jouer(Pion grille[N][M],int colonne,char pion,int joueur){
 	int ligne=5; // on commence en bas du tableau
+	int index=0;
 	switch(pion)
 	{
 		
 		case BLOC:
 			// tant que la case n'est pas vide -> on remonte !
-			while(ligne>=0 && !case_vide(grille, ligne, colonne)){
-				ligne --;
-			}
-			// 2 possibilités : soit ligne >= 0, on place le pion dans la case, ligne, colonne
+            		while(ligne>=0 && !case_vide(grille, ligne, colonne-1))
+               		{
+                	  	ligne --;
+              		 }
+			// 2 possibilitÃ©s : soit ligne >= 0, on place le pion dans la case, ligne, colonne
 			// soit i < 0 -> la colonne est pleine
-			grille[ligne][colonne].bloquante = BLOC;
-
-		;break;
-		case PLEIN:
-		
+			
+               		if(ligne>=0)
+              		 {
+                 		 grille[ligne][colonne-1].bloquante = joueur;
+                 		
+                  		return 1;
+               		}
+               		else {
+                  	 //colonne pleine !!
+                  	 printf("colonne pleine !! \n\n");
+                   
+               		}
+				
+              	 ;break;
+            case PLEIN:
+            	ligne=0; // on commence en haut du tableau, on descend si !plein ou si !block
+		while(ligne < N && grille[ligne][colonne-1].pleine == VIDE && grille[ligne][colonne-1].bloquante == VIDE ){
 			// tant que la case ne contient ni une bloquante ni une pleine -> on remonte !			
-			while(ligne>=0 && (grille[ligne][colonne].bloquante != VIDE || grille[ligne][colonne].pleine != VIDE )){
-				ligne --;
-			}
-			 grille[ligne][colonne].pleine= PLEIN;
+               	//while(ligne>=0 && (grille[ligne][colonne-1].bloquante != VIDE || grille[ligne][colonne-1].pleine != VIDE )){
+                   ligne ++;
+              	 }
+           //il faut mettre le pion juste au dessus de la ligne
+               if(ligne > 0)
+                {
+                   //if(grille[ligne][colonne-1].bloquante != VIDE || grille[ligne][colonne-1].pleine != VIDE ){
+                	//if(grille[ligne][colonne-1].creuse != VIDE || case_vide(grille, ligne, colonne-1))
+                  		 grille[ligne-1][colonne-1].pleine= joueur;
+                   		 
+                   	/*}else{
+                   		while(grille[ligne][colonne-1].creuse != VIDE){
+                   			ligne--;
+                   		}
+                   		ligne++;
+                   		grille[ligne][colonne-1].pleine= joueur;
+                   	}*/
+                   	return 1;
+                }
+               else {
+                   //colonne pleine !!
+                   printf("colonne pleine !! \n\n");
+               }
+			 
 			 
 		
-			;break;
-		case CREUX:		// Si case non vide ou bloquante, on remonte sinnon traverse
-						while(ligne>=0 && (grille[ligne][colonne].bloquante != VIDE || grille[ligne][colonne].creuse != VIDE)){
-							ligne --;
-							}
-							grille[ligne][colonne].creuse = CREUX;  	
-			;break; 			
+               ;break;
+            case CREUX:		// Si case non vide ou bloquante, on remonte sinnon traverse
+            ligne=0;    // on commence en haut du tableau, on descend si !creuse ou si !block
+            	while(ligne < N && grille[ligne][colonne-1].creuse == VIDE && grille[ligne][colonne-1].bloquante == VIDE){
+		//while(ligne>=0 && (grille[ligne][colonne-1].bloquante != VIDE || grille[ligne][colonne-1].creuse != VIDE)){
+                        ligne ++;
+                 }
+                if(ligne>=0)
+                 {
+                 	//if(grille[ligne][colonne-1].bloquante != VIDE || grille[ligne][colonne-1].creuse != VIDE  ){
+                     //if(grille[ligne][colonne-1].pleine != VIDE || case_vide(grille, ligne, colonne-1))
+                  		 grille[ligne-1][colonne-1].creuse= joueur;
+                     		 
+                     	/*}else{
+                     		while(grille[ligne][colonne-1].pleine != VIDE){
+                   			ligne--;
+                   		}
+                   		ligne++;
+                   		grille[ligne][colonne-1].creuse= joueur;
+                   	*/
+                   	return 1;
+                 }
+                 else {
+                       //colonne pleine !!
+                      printf("colonne pleine !! \n\n");
+                 }
+	   	
+		;break; 			
 				
-	}	
-}	
-
-
-
-
-
-					//		jouer partie 
-void lancer_jeu()
-{
-	int i=0,colonne;
-	char pion;
-	char joueur;
-	Pion grille[N][M];
-	init_matrice(grille);
-	afficher_jeu(grille);
-	while(i<Z){
-		
-		printf("choisir la colonne: ");
-		scanf("%i",&colonne);
-		colonne--;
-		printf("choisir un type de pion ");
-		scanf(" %c",&pion);
-		printf("\n");
-		
-       		jouer(grille,colonne,pion,'A');
-		afficher_jeu(grille);
-		i++;
-	}
-
-					
+        }
+   	 return 0; // on n'a pas placÃ© la piece
+    	
 }
-	int i=0;  // incrementation pour les 42 pions en jeu
- 	char pion;
+
+/*
+
+	fonction qui permet de faire jouer le joueur
+*/
+
+void faire_jouer(int joueur,Pion grille[N][M]){
 	int colonne;
-	char joueur_1[20];
-	Pion grille[N][M];
-	printf(" Quel joueur commence ? \n");
-	scanf("%s",joueur_1);
-		
-	while( i !=42 && grille_pleine(grille))
-	{
-		
-		printf(" \n Bonjour %i choisissez une colonne : ", num_joueur ); // avoir avec yassin
-		scanf("%i",&colonne);
-		while(!coord_valide())
-					scanf("%i",&colonne);
-		
-		while(colonne_pleine())
-		{
-			printf(" cette colonne est pleine, choisissez en une autre \n");
-			scanf("%i",&colonne);
-		}
-					
-			printf(" \n Et choisissez un type de pion :");
-			printf(" \n 'p' Pion type plein :");
-			printf(" \n 'b' Pion type bloquant :");
-			printf(" \n 'c' Pion type creux :");
-			scanf("%c", &pion);
-			jouer(grille,colonne,pion);
-			afficher_jeu(grille);
-			i++
-			
-		}
+	char pion;
+    
+    //on choisit une colonne et un pion, tant qu'on ne peut pas jouer dans cette colonne
+    do {
+        
+        do{
+        	printf("choisir une colonne (entre 1 et 7)  : ");
+        	scanf("%i",&colonne);
+        }while(colonne<1 || colonne>7);
+        
+
+           printf("choisir le pion (bloquante: b, pleine: p, creux: c) : ");
+      	   scanf(" %c",&pion);
+       	   printf("\n");
+     	   
+     	   if(pion!= CREUX && pion!=BLOC && pion!=PLEIN)
+        	printf("veuillez choisir soit un pion plein ou bloquant ou creux");
+        	
+
+      } while(jouer(grille,colonne,pion,joueur) == 0);  
+
+}	
+	
+	
+	
+	
 	
 
+void victoire (Pion grille[N][M],int joueur)
+{
+    
+    int ligne,colonne;
+	int nbp_v = 0;  // nombre de pion alignes verticalement
+	int nbp_h = 0; // nombre de pion alignes horizontalement
+	
+	
+         			/* Verification victoire d'alignement Vertical */
+    	for(colonne=0;colonne<M;colonne++)
+    	{
+    		for(ligne=5;ligne>=0;ligne--)
+    		{
+    			if(((grille[ligne][colonne].bloquante == joueur) ||(grille[ligne][colonne].pleine== joueur) || grille[ligne][colonne].creuse ==joueur || ((grille[ligne][colonne].pleine== joueur) && (grille[ligne][colonne].creuse ==joueur ))) && (nbp_v != 3))
+    			{
+    				nbp_v ++;
+    				fprintf(stderr, "######### nbp_v= %i\n", nbp_v);  
+    			}
+    			else if((grille[ligne][colonne].pleine != joueur) && (grille[ligne][colonne].bloquante != joueur) && grille[ligne][colonne].creuse != joueur)
+    				nbp_v=0;
+    			else 
+    				printf(" VERTICALE ok du joueur %i\n",joueur);
+    		} 			
+    	}
+											
+    			/* Verification victoire d'alignement  Horizontale*/
+   
+    		for(ligne=5;ligne>=0;ligne--)
+    		{
+    			for(colonne=0;colonne<M;colonne++)
+    			{		
+    				if(((grille[ligne][colonne].bloquante == joueur) ||(grille[ligne][colonne].pleine== joueur) || grille[ligne][colonne].creuse ==joueur || ((grille[ligne][colonne].pleine== joueur) && (grille[ligne][colonne].creuse ==joueur ))) && (nbp_h != 3))
+    					{
+    						nbp_h++;
+    						fprintf(stderr, "######### nbp_h= %i\n", nbp_h);  
+    					}
+    					else if((grille[ligne][colonne].pleine != joueur) && (grille[ligne][colonne].bloquante != joueur) && grille[ligne][colonne].creuse != joueur)
+    						nbp_h=0;
+    					else 
+    						printf(" HORIZONTALE ok du joueur%i\n",joueur);
+					
+  				} 	
+    		}       
 
-
-
-
-
-
-/*	Programme principal */
-int main(void)
-{	int choix;
-
-/* on affiche le menu du jeu */
-	do
-	{	
-		    //Afficher le début du jeu
-       printf("\33[32m ___________________________________\n");
-       printf("\33[32m|                                   |\n");
-       printf("\33[32m|\33[30m      \33[34mJEU DE PUISSANCE 4++ \33[30m  \33[32m    |\n");
-		  printf("\33[32m|___________________________________|\n");
-		  printf("\33[32m|   \33[34m Bienvenue dans Puissance 4++ \33[30m \33[32m | \n");
-  printf("\33[32m| 	\33[34m~ Faites votre Choix ~   \33[30m  \33[32m |\n");
-  		printf("\33[32m|___________________________________|\n");
-		  printf("\33[32m|\33[34m 1 - Jouer au Puissance 4 classique\33[30m\33[32m|\n");
-		  printf("\33[32m|\33[34m 2 - Jouer en mode 2 joueurs       \33[30m\33[32m|\n");
-		  printf("\33[32m|\33[34m 3 - Jouer en mode 3 joueurs       \33[30m\33[32m|\n");
-		  printf("\33[32m|\33[34m 4 - Jouer en mode 4 joueurs       \33[30m\33[32m|\n");
-		  printf("\33[32m|\33[34m 5 - Regarder regles puissance 4++ \33[30m\33[32m| \n");
-		  printf("\33[32m|\33[34m 6 - Quitter                      \33[30m \33[32m|\n");
-       printf("\33[32m|___________________________________\33[30m\33[32m|\33[30m  \n\n");
-		printf("Votre choix : ");
-		scanf("%d",&choix);
-
-/* on Traite  le choix de l'user */
-		switch(choix)
-		{	case 1: lancer_jeu();
-			case 2: 
-			case 3: 
-			case 4:
-			case 5: 
-			case 6: break;
-			default: printf("Erreur: votre choix doit etre compris entre 1 et 6\n");
-		}
-	}
-	while(choix!=5);
-	printf("A la prochaine inshaa Allah  ! \n");
-	return 0;
 }
+
+/* fonction d'aide au joueur */
+
+void Help_Me(int joueur,Pion grille[N][M])
+{
+	 int ligne, colonne;
+
+		/*	
+			for(colonne=0;colonne<M;colonne++)
+			{	
+    			 while((grille[ligne][colonne].pleine == 1) || (grille[ligne][colonne].pleine == 2 ) || (grille[ligne][colonne].pleine == 3) || (grille[ligne][colonne].pleine == 4 ) 
+    			 ||(grille[ligne][colonne].bloquante == 1) || ( grille[ligne][colonne].bloquante == 2) ||(grille[ligne][colonne].bloquante == 3) || ( grille[ligne][colonne].bloquante == 4) 
+    			 || (grille[ligne][colonne]. creuse == 1 ) || (grille[ligne][colonne].creuse == 2 ) || (grille[ligne][colonne]. creuse == 3 ) || (grille[ligne][colonne].creuse == 4 ))
+
+    				ligne--;
+
+    				grille[ligne][colonne].pleine=joueur;	
+    				break;
+    		
+    		} 			
+    */
+	
+		int nbp_v = 0;  // nombre de pion alignes verticalement
+	
+	
+         			/* Verification d'aide Vertical */
+    	for(colonne=0;colonne<M;colonne++)
+    	{
+    		for(ligne=5;ligne>=0;ligne--)
+    		{
+    			if(((grille[ligne][colonne].bloquante == joueur) ||(grille[ligne][colonne].pleine== joueur) || grille[ligne][colonne].creuse ==joueur || ((grille[ligne][colonne].pleine== joueur) && (grille[ligne][colonne].creuse ==joueur ))) && (nbp_v != 3))
+    			{
+    				nbp_v ++;
+    			}
+    			else if((grille[ligne][colonne].pleine != joueur) && (grille[ligne][colonne].bloquante != joueur) && (grille[ligne][colonne].creuse != joueur))
+    			{
+    					grille[ligne][colonne].pleine=joueur;	
+						break;
+
+				}
+    		} 	
+    		break;		
+    	}
+}	
+
+void Lancer_Jeu()
+{
+	int i=0,colonne,joueur=1,nbr_joueur,j=1;
+	char pion;
+	int choix;
+	
+	Pion grille[N][M];
+	initialiser_grille(grille);
+	afficher_grille(grille);
+	do
+	{
+		printf("\n veuillez choisir le nombre des joueurs (maximum 4) : ");
+		scanf("%i",&nbr_joueur);
+	}while(nbr_joueur<2 || nbr_joueur>MAX_JOUEUR);
+   
+	
+	while(i<nb_case){	//tant que la partie n'est pas finie
+		if(nbr_joueur){
+		
+        
+				printf("\n\n\t\t==============## Joueur %i ##================\n\n",joueur);
+				
+				choix=0;
+				do
+				{
+					printf(" Si Vous voulez jouer normalement, tapez > 1 < \n");
+					printf(" Si vous avez besoin d'aide, tapez > 2 < \n");
+					scanf("%i",&choix);
+			        }while(choix<1 || choix>2);
+				
+				printf(" ici \n");
+			while ( choix ==1 )
+			{
+				printf(" classique \n");
+				faire_jouer(joueur,grille);
+				if(joueur==nbr_joueur)
+                    joueur=0;
+				afficher_grille(grille);
+                victoire (grille, joueur);
+				i++;
+				joueur++;
+				choix--;
+			}
+			
+			while ( choix == 2 )
+			{
+				printf(" Fonction Help \n");
+				Help_Me(joueur,grille);
+				if(joueur==nbr_joueur)
+                    joueur=0;
+				afficher_grille(grille);
+                victoire (grille, joueur);
+				i++;
+				joueur++;
+				choix--;
+			}
+				
+		}
+		
+	}
+	printf("la grille est pleine");
+}
+
+
+
+
