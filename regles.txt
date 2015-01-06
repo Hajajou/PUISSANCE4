@@ -1,0 +1,17 @@
+Comme dans un puissance 4 classique la grille garde une taille 6x7 (6 lignes et 7 colonnes).
+
+Puissance 4++ se joue de 2 à 4 joueurs et il existe trois types différentes de pièces : les pleines, les creuses et les bloquantes.
+
+Les pleines : ce sont les pièces du puissance 4 classique.
+
+Les creuses : ces pièces peuvent se superposées sur une pièce pleine (mais pas bloquante).
+
+Les bloquantes : empêchent de pouvoir jouer une pièce pleine ou creuse en dessous de cette pièce.
+
+Un système d’aide a était mit en place dans le jeu, mais attention, à ne pas demander l’aide n’importe quand.
+L’aide peut vous pénalisez en sautant votre tour si aucun de vos pions n’est au-dessus d’un pion de l’adversaire ou qu’aucun de vos pion n’a pas encore était placé.
+Et l’aide ne peut jouer que des pions bloquants, et ne peut jouer que verticalement.
+
+Le jeu est gagné lorsqu'il y a 4 pièces alignées horizontalement, verticalement ou en diagonale. Sinon la partie est nulle (puisque toute la grille sera remplie sans gagnant).
+
+Bonne Partie De Puissance 4++.
