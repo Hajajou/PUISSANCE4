@@ -1,0 +1,253 @@
+\hypertarget{fonctions_8c}{\section{fonctions.\-c File Reference}
+\label{fonctions_8c}\index{fonctions.\-c@{fonctions.\-c}}
+}
+
+
+ce fichier source contient les définitions des fonctions d'affichage de la grille du jeu et des fonctions qui permettent de jouer dans la grille detecter une victoire d'un joueur.  
+
+
+{\ttfamily \#include $<$stdio.\-h$>$}\\*
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}direction.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}fonctions.\-h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{fonctions_8c_a799151697579b336360a222a02dd5d71}{void {\bfseries initialiser\-\_\-grille} (\hyperlink{structPion}{Pion} \hyperlink{fonctions_8c_abbcfb8543d7c4d7db9492b97c3375c78}{grille}\mbox{[}N\mbox{]}\mbox{[}M\mbox{]})}\label{fonctions_8c_a799151697579b336360a222a02dd5d71}
+
+\item 
+\hypertarget{fonctions_8c_a1d46dab456ee1ba74df92c96f0b946cd}{void \hyperlink{fonctions_8c_a1d46dab456ee1ba74df92c96f0b946cd}{afficher\-\_\-bordure} ()}\label{fonctions_8c_a1d46dab456ee1ba74df92c96f0b946cd}
+
+\begin{DoxyCompactList}\small\item\em procédure qui affiche les bordures de ligne de la grille du jeu. \end{DoxyCompactList}\item 
+void \hyperlink{fonctions_8c_ab157bb6a2115ef2c70e6ddc9ffb2bf1e}{afficher\-\_\-grille} (\hyperlink{structPion}{Pion} \hyperlink{fonctions_8c_abbcfb8543d7c4d7db9492b97c3375c78}{grille}\mbox{[}N\mbox{]}\mbox{[}M\mbox{]})
+\begin{DoxyCompactList}\small\item\em procédure qui affiche la grille du jeu. \end{DoxyCompactList}\item 
+int \hyperlink{fonctions_8c_a3e91987d10b2763aa94603459823593d}{case\-\_\-vide} (\hyperlink{structPion}{Pion} \hyperlink{fonctions_8c_abbcfb8543d7c4d7db9492b97c3375c78}{grille}\mbox{[}N\mbox{]}\mbox{[}M\mbox{]}, int lig, int col)
+\begin{DoxyCompactList}\small\item\em renvoie V\-R\-A\-I si grille\mbox{[}lig\mbox{]}\mbox{[}col\mbox{]} est vide \end{DoxyCompactList}\item 
+int \hyperlink{fonctions_8c_a5ad1c90d52e95196135fcdb5e2616cb0}{jouer} (\hyperlink{structPion}{Pion} \hyperlink{fonctions_8c_abbcfb8543d7c4d7db9492b97c3375c78}{grille}\mbox{[}N\mbox{]}\mbox{[}M\mbox{]}, int colonne, char pion, int joueur)
+\begin{DoxyCompactList}\small\item\em joue dans la colonne 'colonne' le pion 'pion' et il faut avoir vÃ©rifiÃ© que la colonne n'est pas pleine. \end{DoxyCompactList}\item 
+int \hyperlink{fonctions_8c_adbe427681f278e3141aa9d2e4e828d7b}{coord\-\_\-valides} (int ligne, int colonne, \hyperlink{structPion}{Pion} \hyperlink{fonctions_8c_abbcfb8543d7c4d7db9492b97c3375c78}{grille}\mbox{[}N\mbox{]}\mbox{[}M\mbox{]})
+\begin{DoxyCompactList}\small\item\em verifie que les coordonnées (i;j) sont valides (dans la matrice) \end{DoxyCompactList}\item 
+int \hyperlink{fonctions_8c_afc475163ff2a3ed89e1822258c8283b6}{present} (int joueur, int ligne, int colonne, \hyperlink{structPion}{Pion} \hyperlink{fonctions_8c_abbcfb8543d7c4d7db9492b97c3375c78}{grille}\mbox{[}N\mbox{]}\mbox{[}M\mbox{]})
+\begin{DoxyCompactList}\small\item\em test la présence du joueur x sur a un endroit donné, retourne le numero du joueur ou zéro sinon \end{DoxyCompactList}\item 
+int \hyperlink{fonctions_8c_a2bbd28e0a4728ac91c8d938fc5b75f39}{victoire} (int joueur, \hyperlink{structPion}{Pion} \hyperlink{fonctions_8c_abbcfb8543d7c4d7db9492b97c3375c78}{grille}\mbox{[}N\mbox{]}\mbox{[}M\mbox{]})
+\begin{DoxyCompactList}\small\item\em fonction qui renvoie vrai si la case i,j est le début d'une suite de 4 pions de couleur joueur \end{DoxyCompactList}\item 
+void \hyperlink{fonctions_8c_a346d4de5f86f2c0f7d818d161707f0cc}{Help\-\_\-\-Me} (int joueur, \hyperlink{structPion}{Pion} \hyperlink{fonctions_8c_abbcfb8543d7c4d7db9492b97c3375c78}{grille}\mbox{[}N\mbox{]}\mbox{[}M\mbox{]})
+\begin{DoxyCompactList}\small\item\em fonction qui permet de mettre un pion dans la grille pour aider le joueur \end{DoxyCompactList}\item 
+int \hyperlink{fonctions_8c_a630af6410926a1b892311c917c850413}{joueursuivant} (int num\-\_\-joueur, int nb\-\_\-joueur)
+\begin{DoxyCompactList}\small\item\em fonction qui permet de donner le numero du joueur qui va jouer apres le joueur precedent \end{DoxyCompactList}\item 
+int \hyperlink{fonctions_8c_afe3dba76c3938d3ba68f565c45412b52}{colonne\-\_\-pleine} (char pion, int colonne, \hyperlink{structPion}{Pion} \hyperlink{fonctions_8c_abbcfb8543d7c4d7db9492b97c3375c78}{grille}\mbox{[}N\mbox{]}\mbox{[}M\mbox{]})
+\begin{DoxyCompactList}\small\item\em test si la colonne est pleine \end{DoxyCompactList}\item 
+\hypertarget{fonctions_8c_a9cfb608e791ae19be7a5ea409ba50194}{void \hyperlink{fonctions_8c_a9cfb608e791ae19be7a5ea409ba50194}{regles} ()}\label{fonctions_8c_a9cfb608e791ae19be7a5ea409ba50194}
+
+\begin{DoxyCompactList}\small\item\em fonction qui donne les regles du jeu au joueur \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{structPion}{Pion} \hyperlink{fonctions_8c_abbcfb8543d7c4d7db9492b97c3375c78}{grille} \mbox{[}N\mbox{]}\mbox{[}M\mbox{]}
+\begin{DoxyCompactList}\small\item\em structure de données utilisé pour le jeu puissance4++ \end{DoxyCompactList}\item 
+char $\ast$ \hyperlink{fonctions_8c_a3c9e28daf923c7753b90188da586c0b2}{coul\-\_\-joueur} \mbox{[}\hyperlink{fonctions_8h_a787bfbe1eb9dcefcecee22f8470b42ac}{M\-A\-X\-\_\-\-J\-O\-U\-E\-U\-R}\mbox{]} = \{ \hyperlink{fonctions_8h_a6f699060902f800f12aaae150f3a708e}{M\-A\-G\-E\-N\-T\-A}, \hyperlink{fonctions_8h_ad243f93c16bc4c1d3e0a13b84421d760}{C\-Y\-A\-N}, \hyperlink{fonctions_8h_a22c2b7cb14b1ffb516a9ed4a164b5cda}{V\-E\-R\-T}, \hyperlink{fonctions_8h_a358a59dd21062085dd34d5c228c5f136}{R\-O\-U\-G\-E} \}
+\begin{DoxyCompactList}\small\item\em structure de données utilisé pour le jeu puissance4++ qui precise la couleur de chaque joueur \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+ce fichier source contient les définitions des fonctions d'affichage de la grille du jeu et des fonctions qui permettent de jouer dans la grille detecter une victoire d'un joueur. \begin{DoxyAuthor}{Author}
+Yassine M'chaar And Ilyess Hajajou 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+03 Décembre 2014
+\end{DoxyDate}
+ce fichier contient aussi la définition de la fonction d'initialisation de la grille du jeu. il contient également la définition de la fonction qui permet de savoir si la grille du jeu est entièrement remplie.\-et aussi des fonctions servent à jouer dans la grille et detecter le joueur gagnant. 
+
+\subsection{Function Documentation}
+\hypertarget{fonctions_8c_ab157bb6a2115ef2c70e6ddc9ffb2bf1e}{\index{fonctions.\-c@{fonctions.\-c}!afficher\-\_\-grille@{afficher\-\_\-grille}}
+\index{afficher\-\_\-grille@{afficher\-\_\-grille}!fonctions.c@{fonctions.\-c}}
+\subsubsection[{afficher\-\_\-grille}]{\setlength{\rightskip}{0pt plus 5cm}void afficher\-\_\-grille (
+\begin{DoxyParamCaption}
+\item[{{\bf Pion}}]{grille\mbox{[}\-N\mbox{]}\mbox{[}\-M\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{fonctions_8c_ab157bb6a2115ef2c70e6ddc9ffb2bf1e}
+
+
+procédure qui affiche la grille du jeu. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grille} & matrice de type pion de taille N$\ast$\-M à afficher. \\
+\hline
+\end{DoxyParams}
+\hypertarget{fonctions_8c_a3e91987d10b2763aa94603459823593d}{\index{fonctions.\-c@{fonctions.\-c}!case\-\_\-vide@{case\-\_\-vide}}
+\index{case\-\_\-vide@{case\-\_\-vide}!fonctions.c@{fonctions.\-c}}
+\subsubsection[{case\-\_\-vide}]{\setlength{\rightskip}{0pt plus 5cm}int case\-\_\-vide (
+\begin{DoxyParamCaption}
+\item[{{\bf Pion}}]{grille\mbox{[}\-N\mbox{]}\mbox{[}\-M\mbox{]}, }
+\item[{int}]{lig, }
+\item[{int}]{col}
+\end{DoxyParamCaption}
+)}}\label{fonctions_8c_a3e91987d10b2763aa94603459823593d}
+
+
+renvoie V\-R\-A\-I si grille\mbox{[}lig\mbox{]}\mbox{[}col\mbox{]} est vide 
+
+une case vide est une case qui ne contient ni piece bloquante, ni piece pleine ni piece creuse 
+\begin{DoxyParams}{Parameters}
+{\em grille} & matrice de type pion de taille lig$\ast$col à afficher \\
+\hline
+\end{DoxyParams}
+\hypertarget{fonctions_8c_afe3dba76c3938d3ba68f565c45412b52}{\index{fonctions.\-c@{fonctions.\-c}!colonne\-\_\-pleine@{colonne\-\_\-pleine}}
+\index{colonne\-\_\-pleine@{colonne\-\_\-pleine}!fonctions.c@{fonctions.\-c}}
+\subsubsection[{colonne\-\_\-pleine}]{\setlength{\rightskip}{0pt plus 5cm}int colonne\-\_\-pleine (
+\begin{DoxyParamCaption}
+\item[{char}]{pion, }
+\item[{int}]{colonne, }
+\item[{{\bf Pion}}]{grille\mbox{[}\-N\mbox{]}\mbox{[}\-M\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{fonctions_8c_afe3dba76c3938d3ba68f565c45412b52}
+
+
+test si la colonne est pleine 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grille} & qui contient des pions dans une colonne précisée \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+renvois 1 si la colonne est pleine 0 sinon 
+\end{DoxyReturn}
+\hypertarget{fonctions_8c_adbe427681f278e3141aa9d2e4e828d7b}{\index{fonctions.\-c@{fonctions.\-c}!coord\-\_\-valides@{coord\-\_\-valides}}
+\index{coord\-\_\-valides@{coord\-\_\-valides}!fonctions.c@{fonctions.\-c}}
+\subsubsection[{coord\-\_\-valides}]{\setlength{\rightskip}{0pt plus 5cm}int coord\-\_\-valides (
+\begin{DoxyParamCaption}
+\item[{int}]{ligne, }
+\item[{int}]{colonne, }
+\item[{{\bf Pion}}]{grille\mbox{[}\-N\mbox{]}\mbox{[}\-M\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{fonctions_8c_adbe427681f278e3141aa9d2e4e828d7b}
+
+
+verifie que les coordonnées (i;j) sont valides (dans la matrice) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grille} & matrice de type pion de taille ligne$\ast$colonne à afficher \\
+\hline
+\end{DoxyParams}
+\hypertarget{fonctions_8c_a346d4de5f86f2c0f7d818d161707f0cc}{\index{fonctions.\-c@{fonctions.\-c}!Help\-\_\-\-Me@{Help\-\_\-\-Me}}
+\index{Help\-\_\-\-Me@{Help\-\_\-\-Me}!fonctions.c@{fonctions.\-c}}
+\subsubsection[{Help\-\_\-\-Me}]{\setlength{\rightskip}{0pt plus 5cm}void Help\-\_\-\-Me (
+\begin{DoxyParamCaption}
+\item[{int}]{joueur, }
+\item[{{\bf Pion}}]{grille\mbox{[}\-N\mbox{]}\mbox{[}\-M\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{fonctions_8c_a346d4de5f86f2c0f7d818d161707f0cc}
+
+
+fonction qui permet de mettre un pion dans la grille pour aider le joueur 
+
+
+\begin{DoxyParams}{Parameters}
+{\em joueur} & qui demande l'aide dans la grille du jeu \\
+\hline
+\end{DoxyParams}
+\hypertarget{fonctions_8c_a5ad1c90d52e95196135fcdb5e2616cb0}{\index{fonctions.\-c@{fonctions.\-c}!jouer@{jouer}}
+\index{jouer@{jouer}!fonctions.c@{fonctions.\-c}}
+\subsubsection[{jouer}]{\setlength{\rightskip}{0pt plus 5cm}int jouer (
+\begin{DoxyParamCaption}
+\item[{{\bf Pion}}]{grille\mbox{[}\-N\mbox{]}\mbox{[}\-M\mbox{]}, }
+\item[{int}]{colonne, }
+\item[{char}]{pion, }
+\item[{int}]{joueur}
+\end{DoxyParamCaption}
+)}}\label{fonctions_8c_a5ad1c90d52e95196135fcdb5e2616cb0}
+
+
+joue dans la colonne 'colonne' le pion 'pion' et il faut avoir vÃ©rifiÃ© que la colonne n'est pas pleine. 
+
+renvoie V\-R\-A\-I si on a posé le pion, F\-A\-U\-X sinon. 
+\begin{DoxyParams}{Parameters}
+{\em joueur} & qui permet de choisir une colonne de la grille pour mettre le pion choisie \\
+\hline
+\end{DoxyParams}
+\hypertarget{fonctions_8c_a630af6410926a1b892311c917c850413}{\index{fonctions.\-c@{fonctions.\-c}!joueursuivant@{joueursuivant}}
+\index{joueursuivant@{joueursuivant}!fonctions.c@{fonctions.\-c}}
+\subsubsection[{joueursuivant}]{\setlength{\rightskip}{0pt plus 5cm}int joueursuivant (
+\begin{DoxyParamCaption}
+\item[{int}]{num\-\_\-joueur, }
+\item[{int}]{nb\-\_\-joueur}
+\end{DoxyParamCaption}
+)}}\label{fonctions_8c_a630af6410926a1b892311c917c850413}
+
+
+fonction qui permet de donner le numero du joueur qui va jouer apres le joueur precedent 
+
+
+\begin{DoxyParams}{Parameters}
+{\em num\-\_\-joueur} & qui va jouer parmis les nb\-\_\-joueur \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+renvois le joueur suivant ( joueur précédent + 1) 
+\end{DoxyReturn}
+\hypertarget{fonctions_8c_afc475163ff2a3ed89e1822258c8283b6}{\index{fonctions.\-c@{fonctions.\-c}!present@{present}}
+\index{present@{present}!fonctions.c@{fonctions.\-c}}
+\subsubsection[{present}]{\setlength{\rightskip}{0pt plus 5cm}int present (
+\begin{DoxyParamCaption}
+\item[{int}]{joueur, }
+\item[{int}]{ligne, }
+\item[{int}]{colonne, }
+\item[{{\bf Pion}}]{grille\mbox{[}\-N\mbox{]}\mbox{[}\-M\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{fonctions_8c_afc475163ff2a3ed89e1822258c8283b6}
+
+
+test la présence du joueur x sur a un endroit donné, retourne le numero du joueur ou zéro sinon 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grille} & de taille lignne$\ast$colonne detecte joueur \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+joueur pour qu on sache si il est present sinon il retourne 0 
+\end{DoxyReturn}
+\hypertarget{fonctions_8c_a2bbd28e0a4728ac91c8d938fc5b75f39}{\index{fonctions.\-c@{fonctions.\-c}!victoire@{victoire}}
+\index{victoire@{victoire}!fonctions.c@{fonctions.\-c}}
+\subsubsection[{victoire}]{\setlength{\rightskip}{0pt plus 5cm}int victoire (
+\begin{DoxyParamCaption}
+\item[{int}]{joueur, }
+\item[{{\bf Pion}}]{grille\mbox{[}\-N\mbox{]}\mbox{[}\-M\mbox{]}}
+\end{DoxyParamCaption}
+)}}\label{fonctions_8c_a2bbd28e0a4728ac91c8d938fc5b75f39}
+
+
+fonction qui renvoie vrai si la case i,j est le début d'une suite de 4 pions de couleur joueur 
+
+
+\begin{DoxyParams}{Parameters}
+{\em grille} & de taille N$\ast$\-M precise le joueur qui gagne \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+V\-R\-A\-I si il y a 4 pions alignés soit verticalement ou diagonalement ou horizontalement 
+\end{DoxyReturn}
+
+
+\subsection{Variable Documentation}
+\hypertarget{fonctions_8c_a3c9e28daf923c7753b90188da586c0b2}{\index{fonctions.\-c@{fonctions.\-c}!coul\-\_\-joueur@{coul\-\_\-joueur}}
+\index{coul\-\_\-joueur@{coul\-\_\-joueur}!fonctions.c@{fonctions.\-c}}
+\subsubsection[{coul\-\_\-joueur}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ coul\-\_\-joueur\mbox{[}{\bf M\-A\-X\-\_\-\-J\-O\-U\-E\-U\-R}\mbox{]} = \{ {\bf M\-A\-G\-E\-N\-T\-A}, {\bf C\-Y\-A\-N}, {\bf V\-E\-R\-T}, {\bf R\-O\-U\-G\-E} \}}}\label{fonctions_8c_a3c9e28daf923c7753b90188da586c0b2}
+
+
+structure de données utilisé pour le jeu puissance4++ qui precise la couleur de chaque joueur 
+
+tableau de type char et de taille M\-A\-X\-\_\-\-J\-O\-U\-E\-U\-R.
+\begin{DoxyItemize}
+\item chaque case du tableau contient la couleur du joueur 
+\end{DoxyItemize}\hypertarget{fonctions_8c_abbcfb8543d7c4d7db9492b97c3375c78}{\index{fonctions.\-c@{fonctions.\-c}!grille@{grille}}
+\index{grille@{grille}!fonctions.c@{fonctions.\-c}}
+\subsubsection[{grille}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Pion} grille\mbox{[}N\mbox{]}\mbox{[}M\mbox{]}}}\label{fonctions_8c_abbcfb8543d7c4d7db9492b97c3375c78}
+
+
+structure de données utilisé pour le jeu puissance4++ 
+
+matrice de type pion et de taille N$\ast$\-M . chaque case de la matrice peut contenir deux pièces(pions) au maximum. une case peut contenir une pièce \char`\"{}bloquante\char`\"{} ou \char`\"{}pleine\char`\"{} ou \char`\"{}creuse\char`\"{} ou deus pièces \char`\"{}creuse/pleine\char`\"{} ou peut etre vide(espace). on distingue donc 5 cas possibles pour une case de la matrice. 
